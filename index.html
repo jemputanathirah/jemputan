@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Walimatul Urus</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+
+<style>
+:root { --gold:#502204; }
+
+body {
+  margin:0;
+  font-family:'Merriweather', serif; /* ✅ content font */
+  background:rgba(248, 244, 225, 0.9);
+  color:var(--gold);
+  font-size: 15px;
+  overflow-x:hidden;
+}
+
+/* ===== ENVELOPE ===== */
+#envelope {
+  position:fixed;
+  width:100%;
+  height:100%;
+  z-index:1000;
+  display:flex;
+}
+.door {
+  width: 50%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  transition: transform 1.5s ease;
+  will-change: transform;
+}
+
+/* LEFT SIDE */
+.left {
+  background-image: url('left.png');
+}
+
+/* RIGHT SIDE */
+.right {
+  background-image: url('right.png');
+}
+.open .left { transform:translateX(-100%); }
+.open .right { transform:translateX(100%); }
+
+.open-btn {
+  position:absolute;
+  top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  background:rgba(136, 105, 78, 0.8);
+  color:rgb(255, 255, 255);
+  width:140px; height:140px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  font-family:'Great Vibes';
+  font-size:24px;
+  cursor:pointer;
+  overflow:hidden;
+}
+
+.open-btn::before {
+  content:"";
+  position:absolute;
+  width:200%; height:200%;
+  background:linear-gradient(120deg,transparent 40%,rgba(255,215,0,0.6));
+  animation:shimmer 4s infinite;
+}
+
+@keyframes shimmer {
+  from { transform:translateX(-100%) rotate(25deg);}
+  to { transform:translateX(100%) rotate(25deg);}
+}
+
+/* ===== PETALS ===== */
+.petals {
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  pointer-events:none;
+  z-index:9999;
+}
+.petal {
+  position:absolute;
+  background-size:contain;
+  background-repeat:no-repeat;
+  animation:fall linear forwards;
+}
+@keyframes fall {
+  0% { transform:translateY(-10vh) rotate(0deg); }
+  100% { transform:translateY(110vh) rotate(360deg) translateX(40px); opacity:0; }
+}
+
+/* ===== HERO ===== */
+.hero {
+  position:relative;
+  min-height:100vh;
+  background:url('arch.png') center/cover;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+.hero::before {
+  content:"";
+  position:absolute;
+  inset:0;
+}
+.hero-content {
+  position:relative;
+  z-index:2;
+}
+.hero h1 {
+  font-family:'Great Vibes', cursive;
+  color: #d4af37; /* ✅ names only */
+  font-size:50px;
+  margin-bottom: 10px; /* reduce space below */
+  margin-top: 10px;    /* reduce space above */
+}
+
+p, .date {
+  font-family:'Merriweather', serif;
+}
+
+/* ===== SECTION ===== */
+.section {
+  padding:60px 20px;
+  text-align:center;
+  max-width:800px;
+  margin:auto;
+}
+
+.section h2 {
+  font-family:'Great Vibes';
+  font-size:30px;
+  margin-bottom: 20px; /* reduce space below */
+  margin-top: 15px;    /* reduce space above */
+}
+
+.section h3 {
+  font-family:'Baskerville';
+  font-size:20px;
+}
+.time{
+  position:relative;
+  background:url('bg.png') center/cover;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+
+
+/* ===== CARD ===== */
+.card {
+  background:#88694e;
+  color:rgb(255, 255, 255);
+  padding:20px;
+  border-radius:15px;
+}
+/*bride groom*/
+.couple {
+  color: #d4af37; /* gold */
+}
+
+/*parents*/
+.parents {
+  color: #4f2002; /* brown */
+}
+
+/* ===== FADE ===== */
+.fade {
+  opacity:0;
+  transform:translateY(30px);
+  transition:1s;
+}
+.fade.show {
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  position:fixed;
+  bottom:0;
+  width:100%;
+  display:flex;
+  background:#88694e;
+}
+.footer a {
+  flex:1;
+  text-align:center;
+  padding:12px;
+  text-decoration:none;
+  color:rgb(255, 255, 255);
+}
+
+/* spacing */
+.section { padding-bottom:90px; }
+
+</style>
+</head>
+
+<body>
+
+<div class="petals" id="petals"></div>
+
+<!-- ENVELOPE -->
+<div id="envelope">
+  <div class="door left"></div>
+  <div class="door right"></div>
+
+  <div class="open-btn" id="openBtn">
+   Athirah<br>Danial
+    <span style="font-size:12px; font-family: 'Merriweather', serif;">BUKA</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-content">
+    <h2 class="fade">Walimatul Urus</h2>
+    <h1 class="fade">Athirah</h1>
+    <h1 class="fade" style="opacity: 0.5; color: #502204;">&</h1>
+    <h1 class="fade">Danial</h1>
+    <div class="fade">Sabtu • 02.05.2026</div>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="section">
+  <p class="fade">Assalamualaikum Warahmatullahi Wabarakatuh</p>
+
+  <p class="fade">
+    Dengan nama Allah Yang Maha Pemurah
+    <strong><h3 class="fade parents">Rosli Bin Hassan &<br>
+    Ropeah Binti Md. Abu</h3></strong>
+    Dengan penuh kesyukuran menjemput anda ke majlis perkahwinan anakanda kami
+  </p>
+
+  <h2 class="fade couple">Nur Athirah Binti Rosli</h2>
+  <p class="fade">dengan pasangannya</p>
+  <h2 class="fade couple">Muhammad Danial Bin Mohd Reme</h2>
+
+  <p class="fade">
+    Sabtu | 02 Mei 2026<br>
+    11:00 pagi – 4:00 petang<br>
+    Ketibaan pengantin 12:30 tengahari
+  </p>
+
+  <p class="fade">
+    The Ground of DiJIWA,<br>
+    Sungai Petani, Kedah
+  </p>
+</div>
+
+<!-- EVENT -->
+<div class="section time">
+  <div class="card fade">
+    <h3>Atur Cara Majlis</h3>
+    <p>Kehadiran Tetamu: 11:30 pagi</p>
+    <p>Ketibaan Pengantin: 12:30 tengahari</p>
+    <p>Majlis Berakhir: 4:00 petang</p>
+  </div>
+</div>
+
+<!-- DOA -->
+<div class="section">
+  <p class="fade">
+    “Ya Allah, jadikanlah kehidupan mereka penuh dengan kegembiraan dan kebahagiaan, serta jauhkanlah mereka dari kesedihan dan kesusahan.”
+  </p>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <a href="tel:60198765432"><img src="call.png" alt="Call" style="width:20px; height:20px;"></a>
+  <a href="https://maps.google.com/?q=The+Ground+of+DiJIWA+Sungai+Petani"><img src="loc.png" alt="Location" style="width:20px; height:23px;"></a>
+  <a href="tel:60198765432"><img src="call.png" alt="Call" style="width:20px; height:20px;"></a>
+</div>
+
+<audio id="bgMusic" loop>
+  <source src="Andmesh - Anugerah Terindah.mp3">
+</audio>
+
+<script>
+const btn=document.getElementById("openBtn");
+const env=document.getElementById("envelope");
+const music=document.getElementById("bgMusic");
+const petals=document.getElementById("petals");
+
+/* petals */
+function createPetals(){
+ let imgs=["petal1.png","petal2.png","petal3.png"];
+ for(let i=0;i<30;i++){
+  let p=document.createElement("div");
+  p.className="petal";
+  p.style.left=Math.random()*100+"vw";
+  p.style.width=15+Math.random()*20+"px";
+  p.style.height=p.style.width;
+  p.style.animationDuration=(4+Math.random()*4)+"s";
+  p.style.backgroundImage=`url(${imgs[Math.floor(Math.random()*imgs.length)]})`;
+  petals.appendChild(p);
+  setTimeout(()=>p.remove(),8000);
+ }
+}
+
+/* open */
+btn.onclick=()=>{
+ createPetals();
+ btn.style.opacity = "0";
+ env.classList.add("open");
+ setTimeout(()=>{
+  env.style.display="none";
+  music.play().catch(()=>{});
+ },1500);
+};
+
+/* fade */
+const obs=new IntersectionObserver(e=>{
+ e.forEach(x=>{if(x.isIntersecting)x.target.classList.add("show")});
+});
+document.querySelectorAll('.fade').forEach(el=>obs.observe(el));
+
+</script>
+
+</body>
+</html>
